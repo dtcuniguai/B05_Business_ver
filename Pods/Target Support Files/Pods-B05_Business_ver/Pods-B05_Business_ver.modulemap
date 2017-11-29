@@ -1,0 +1,6 @@
+framework module Pods_B05_Business_ver {
+  umbrella header "Pods-B05_Business_ver-umbrella.h"
+
+  export *
+  module * { export * }
+}

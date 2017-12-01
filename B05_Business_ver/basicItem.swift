@@ -28,36 +28,24 @@ struct Restaurant{
 }
 
 
-
-
-struct resComment{
-    var ID:Int//評論ID
-    var create_UserID:Int//評論人ID
-    var StoreID:Int//餐廳ID
-    var Memo:String//評論
-    var Score:Double//總分
-    var Score_Envir:Double//環境評分
-    var Score_Taste:Double//味道評分
-    var Score_Service:Double//服務評分
-    //var store_Reply: String//店家回覆
-}
-
 // Struct For All restaurant
 // TODO:add new element with restaurant "ID" (not done yet)
 // Code by Niguai
 // last Update by : Niguai
 
-struct userComment{
+struct Comment{
+    
     var ID:Int//評論ID
     var create_UserID:Int//評論人ID
-    var StoreID:Int//餐廳ID
-    var storeName: String //餐廳名稱
+    var storeID:Int//餐廳ID
     var Memo:String//評論
-    var Score:Double//總分
-    var Score_Envir:Double//環境評分
-    var Score_Taste:Double//味道評分
-    var Score_Service:Double//服務評分
-    //var store_Reply: String//店家回覆
+    var score:Double//總分
+    var score_Envir:Double//環境評分
+    var score_Taste:Double//味道評分
+    var score_Service:Double//服務評分
+    var AddTime:String//店家回覆時間
+    var user_Name:String//評論者名稱
+    var store_Reply:String//店家回覆
     
 }
 

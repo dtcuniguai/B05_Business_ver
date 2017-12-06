@@ -12,7 +12,7 @@ import UIKit
 class storeMenu:UITableViewController{
     
     var menuArray = [Menu]();
-    var menuUrl =  "http://140.136.150.95:3000/menu/detail/store?storeID=\(AccountData.user_ID)";
+    var menuUrl =  "http://140.136.150.95:3000/menu/detail/store?storeID=\(AccountData.res_ID)";
     var index = 0;
     var status :String!
     

@@ -30,7 +30,6 @@ class menuDetail:UIViewController,UIPickerViewDelegate,UIPickerViewDataSource,UI
     var pick = UIPickerView()
     var insertUrl =  "";
     var check = 1;
-    var storeID = 1;
     
     var MenuDetail:Menu!
     
@@ -39,7 +38,6 @@ class menuDetail:UIViewController,UIPickerViewDelegate,UIPickerViewDataSource,UI
     //Writer : Niguai
     //Last UpdUser:Niguai
     override func viewDidLoad() {
-        print(AccountData.user_ID)
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
         
@@ -92,7 +90,6 @@ class menuDetail:UIViewController,UIPickerViewDelegate,UIPickerViewDataSource,UI
         
         if(self.type == "U"){
             updUrl =  "http://140.136.150.95:3000/menu/update?storeID=\(AccountData.user_ID)&dishName=\(field_Name.text!)&dishPrice=\(field_Price.text!)&dishTotal=\(field_Total.text!)&takeOut=\(field_TakeOut.text!)&order_moring=\(field_mor.text!)&order_afternoon=\(field_aft.text!)&order_evening=\(field_even.text!)&visable=\(field_visable.text!)&menuID=\(MenuDetail.menuID)"
-            print(updUrl)
             let urlStr = updUrl.addingPercentEncoding(withAllowedCharacters:.urlQueryAllowed)
             let url = URL(string:urlStr!)
             let task = URLSession.shared.dataTask(with: url!) { (data, response , error) in
@@ -264,6 +261,8 @@ class menuDetail:UIViewController,UIPickerViewDelegate,UIPickerViewDataSource,UI
             print("Back tapped")
         }
     }
+    
+    
     
     
     

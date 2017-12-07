@@ -144,7 +144,6 @@
 			children = (
 				0E254D8A1FCD8DEF0099DD9C /* Main.storyboard */,
 				0E43182F1FD2D0D7005F0D18 /* manage.swift */,
-				0E4318211FD2D004005F0D18 /* Charts.xcodeproj */,
 				FE3931171FD7C78D0067E277 /* AppDelegate.swift */,
 				FE3931221FD7C78E0067E277 /* assignAccoutAction.swift */,
 				FE3931181FD7C78D0067E277 /* basicItem.swift */,
@@ -163,6 +162,7 @@
 				FE3931271FD7C78E0067E277 /* restaurantDetail.swift */,
 				FE3931211FD7C78E0067E277 /* restaurantDetailCell.swift */,
 				FE3931141FD7C78D0067E277 /* textSearch.swift */,
+				0E4318211FD2D004005F0D18 /* Charts.xcodeproj */,
 				FE39311B1FD7C78D0067E277 /* B05_Business_ver.xcdatamodeld */,
 				FE3931151FD7C78D0067E277 /* GoogleService-Info.plist */,
 				FE39311E1FD7C78D0067E277 /* Info.plist */,

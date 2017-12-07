@@ -27,7 +27,6 @@ class contentView:UITableViewController{
     //Last UpdUser:Niguai
     override func viewWillAppear(_ animated: Bool) {
         
-        print("pupu")
         commentArray.removeAll()
         self.tableView.reloadData()
         let urlStr = commentUrl.addingPercentEncoding(withAllowedCharacters:.urlQueryAllowed)
@@ -145,10 +144,10 @@ class commentCell:UITableViewCell{
     var create_UserID:Int = 0
     var storeID:Int = 0
     var Memo:String = ""
-    var score:Double = 0
-    var score_Envir:Double = 0
-    var score_Taste:Double = 0
-    var score_Service:Double = 0
+    var score:Double = 0.0
+    var score_Envir:Double = 0.0
+    var score_Taste:Double = 0.0
+    var score_Service:Double = 0.0
     var store_Reply:String = ""
     
     

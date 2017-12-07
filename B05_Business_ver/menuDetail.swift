@@ -129,11 +129,12 @@ class menuDetail:UIViewController,UIPickerViewDelegate,UIPickerViewDataSource,UI
                 check = 0
             }
             if(check != 0){
-                insertUrl = "http://140.136.150.95:3000/menu/add?storeID=\(AccountData.user_ID)&dishName=\(field_Name.text!)&dishPrice=\(field_Price.text!)&dishTotal=\(field_Total.text!)&takeOut=\(field_TakeOut.text!)&order_moring=\(field_mor.text!)&order_afternoon=\(field_aft.text!)&order_evening=\(field_even.text!)&visable=\(field_visable.text!)"
+                insertUrl = "http://140.136.150.95:3000/menu/add?storeID=\(AccountData.res_ID)&dishName=\(field_Name.text!)&dishPrice=\(field_Price.text!)&dishTotal=\(field_Total.text!)&takeOut=\(field_TakeOut.text!)&order_moring=\(field_mor.text!)&order_afternoon=\(field_aft.text!)&order_evening=\(field_even.text!)&visable=\(field_visable.text!)"
                 let urlStr = insertUrl.addingPercentEncoding(withAllowedCharacters:.urlQueryAllowed)
                 let url = URL(string:urlStr!)
                 let task = URLSession.shared.dataTask(with: url!) { (data, response , error) in
-                    if let data = data, let _ = String(data: data, encoding: .utf8) {
+                    if let data = data, let d = String(data: data, encoding: .utf8) {
+                        print(d)
                     }
                 }
                 task.resume()

@@ -70,7 +70,7 @@ struct AccountData {
     static var user_Year:String = ""
     static var user_Tel:String = ""
     static var user_Pic:String = ""
-    static var res_ID: Int = 0
+    static var res_ID: Int = 14
     
 }
 

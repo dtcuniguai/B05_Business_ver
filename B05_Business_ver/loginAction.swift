@@ -22,8 +22,8 @@ class loginAction :UIViewController, UITextFieldDelegate{
         title = "登入"
         self.accoutField.delegate = self
         self.passwordField.delegate = self
-        self.accoutField.text = "test@gmail.com"
-        self.passwordField.text = "12345678"
+        accoutField.text = "test@gmail.com"
+        passwordField.text = "12345678"
         
         
     }
@@ -74,12 +74,10 @@ class loginAction :UIViewController, UITextFieldDelegate{
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {  (action) in
             
             //self.Message(titleText: "ssdadadad", messageText: "sdasdasdasd")
-            if AccountData.user_Type == "U" {
-            }
-            else{
+            
                 let main = self.storyboard?.instantiateViewController(withIdentifier: "storeMenu")
                 self.present(main!, animated: false, completion: nil)
-            }
+            
             
             
             alert.dismiss(animated: true, completion: nil)
@@ -119,7 +117,7 @@ class loginAction :UIViewController, UITextFieldDelegate{
                         AccountData.user_Month = userData["user_Month"] as! String
                         AccountData.user_Year = userData["user_Year"] as! String
                         AccountData.user_Tel = userData["user_Tel"] as! String
-                        
+                        AccountData.res_ID = userData["shop_OwnerID"] as! Int
                     }
                 }
             }

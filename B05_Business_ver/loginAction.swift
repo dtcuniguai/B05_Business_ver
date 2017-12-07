@@ -22,6 +22,8 @@ class loginAction :UIViewController, UITextFieldDelegate{
         title = "登入"
         self.accoutField.delegate = self
         self.passwordField.delegate = self
+        accoutField.text = "test@gmail.com"
+        passwordField.text = "12345678"
         
         
     }

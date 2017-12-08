@@ -16,7 +16,6 @@ class orderlistMain: UITableViewController {
         print("///////////HERE////////")
         super.viewDidLoad()
         var urlStr: String = ""
-        //AccountData.user_ID = 1
         urlStr = "http://140.136.150.95:3000/orderlist/show/store?ID=\(AccountData.res_ID)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let url = URL(string: urlStr)
         let task = URLSession.shared.dataTask(with: url!) { (data, response , error) in

@@ -10,8 +10,10 @@ import UIKit
 
 class orderlistDetailCell: UITableViewCell {
 
-    @IBOutlet weak var fieldLabel: UILabel!
-    @IBOutlet weak var valueLabel: UILabel!
+    @IBOutlet weak var menuLabel: UILabel!
+    @IBOutlet weak var numberLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var doneButton: UIButton!
     
     override func awakeFromNib() {

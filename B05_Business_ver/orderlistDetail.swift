@@ -17,7 +17,7 @@ class orderlistDetail: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(orderlists.orderID)
-        let urlStr = "http://140.136.150.95:3000/orderlist/detail?orderID=\(orderlists.orderID)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        let urlStr = "http://140.136.150.95:3000/orderlist/detail/store?orderID=\(orderlists.orderID)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         let url = URL(string: urlStr!)
         let task = URLSession.shared.dataTask(with: url!) { (data, response , error) in
             if let data = data, let dic = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [[String:Any]]{
@@ -25,8 +25,9 @@ class orderlistDetail: UITableViewController {
                     for detail in dic{
                         self.orderlists.menuID = (detail["ID"] as? Int)!
                         self.orderlists.menuName = (detail["name"] as? String)!
-                        self.orderlists.total = (detail["number"] as? Int)!
-                        self.orderlists.price = (detail["Totalprice"] as? Int)!
+                        self.orderlists.number = (detail["number"] as? Int)!
+                        self.orderlists.price = (detail["price"] as? Int)!
+                        self.orderlists.Totalprice = (detail["Totalprice"] as? Int)!
                         self.orderlists.updateValue = (detail["updateValue"] as? Int)!
                     }
                     self.tableView.reloadData()
@@ -95,11 +96,7 @@ class orderlistDetail: UITableViewController {
         
         switch indexPath.row{
         case 0:
-            var name = "訂單人"
-            if AccountData.user_Type == "U"{
-                name = "餐廳"
-            }
-            cell.fieldLabel.text = name
+            cell.fieldLabel.text = "訂單人"
             cell.valueLabel.text = orderlists.userName
             cell.doneButton.isHidden = true
         case 1:
@@ -112,11 +109,11 @@ class orderlistDetail: UITableViewController {
             cell.doneButton.isHidden = true
         case 3:
             cell.fieldLabel.text = "數量"
-            cell.valueLabel.text = String(orderlists.total)
+            cell.valueLabel.text = String(orderlists.number)
             cell.doneButton.isHidden = true
         case 4:
             cell.fieldLabel.text = "總金額"
-            cell.valueLabel.text = String(orderlists.price)
+            cell.valueLabel.text = String(orderlists.Totalprice)
             cell.doneButton.isHidden = true
         case 5:
             cell.fieldLabel.isHidden = true

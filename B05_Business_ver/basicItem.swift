@@ -119,8 +119,9 @@ struct Orderlist {
     var userName: String
     var orderTime: String
     var menuName: String
-    var total: Int
+    var Totalprice: Int
     var price: Int
+    var number: Int
     var menuID: Int
     var updateValue: Int
 }

@@ -16,7 +16,6 @@ class orderlistDetail: UITableViewController {
     //Writer : Set
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(orderlists.orderID)
         let urlStr = "http://140.136.150.95:3000/orderlist/detail?orderID=\(orderlists.orderID)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         let url = URL(string: urlStr!)
         let task = URLSession.shared.dataTask(with: url!) { (data, response , error) in
@@ -69,6 +68,7 @@ class orderlistDetail: UITableViewController {
     func AlertMessage(){
         let alert = UIAlertController(title: "訂單", message: "訂單已完成", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {  (action) in
+            self.navigationController?.popViewController(animated: true)
             alert.dismiss(animated: true, completion: nil)
         }))
         self.present(alert, animated: true, completion: nil)

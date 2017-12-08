@@ -25,7 +25,6 @@
 		FE3931301FD7C78E0067E277 /* CosmosDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE39311A1FD7C78D0067E277 /* CosmosDistrib.swift */; };
 		FE3931311FD7C78E0067E277 /* B05_Business_ver.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FE39311B1FD7C78D0067E277 /* B05_Business_ver.xcdatamodeld */; };
 		FE3931321FD7C78E0067E277 /* orderlistMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE39311D1FD7C78D0067E277 /* orderlistMain.swift */; };
-		FE3931331FD7C78E0067E277 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE39311E1FD7C78D0067E277 /* Info.plist */; };
 		FE3931341FD7C78E0067E277 /* loginAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE39311F1FD7C78D0067E277 /* loginAction.swift */; };
 		FE3931351FD7C78E0067E277 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3931201FD7C78E0067E277 /* Main.swift */; };
 		FE3931361FD7C78E0067E277 /* restaurantDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3931211FD7C78E0067E277 /* restaurantDetailCell.swift */; };
@@ -230,7 +229,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = Niguai;
 				TargetAttributes = {
 					0E254D821FCD8DEF0099DD9C = {
@@ -289,7 +288,6 @@
 				0E254D941FCD8DEF0099DD9C /* LaunchScreen.storyboard in Resources */,
 				FE39312B1FD7C78E0067E277 /* GoogleService-Info.plist in Resources */,
 				0E254D911FCD8DEF0099DD9C /* Assets.xcassets in Resources */,
-				FE3931331FD7C78E0067E277 /* Info.plist in Resources */,
 				0E254D8C1FCD8DEF0099DD9C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

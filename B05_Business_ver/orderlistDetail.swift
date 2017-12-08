@@ -11,22 +11,30 @@ import UIKit
 class orderlistDetail: UITableViewController {
 
     var orderlists: Orderlist!
+    var orderArray = [Orderlist]()
     
     //connect database
     //Writer : Set
     override func viewDidLoad() {
         super.viewDidLoad()
-        let urlStr = "http://140.136.150.95:3000/orderlist/detail?orderID=\(orderlists.orderID)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        let urlStr = "http://140.136.150.95:3000/orderlist/detail/store?orderID=\(orderlists.orderID)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         let url = URL(string: urlStr!)
         let task = URLSession.shared.dataTask(with: url!) { (data, response , error) in
             if let data = data, let dic = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [[String:Any]]{
                 DispatchQueue.main.async {
                     for detail in dic{
-                        self.orderlists.menuID = (detail["ID"] as? Int)!
-                        self.orderlists.menuName = (detail["name"] as? String)!
-                        self.orderlists.total = (detail["number"] as? Int)!
-                        self.orderlists.price = (detail["Totalprice"] as? Int)!
-                        self.orderlists.updateValue = (detail["updateValue"] as? Int)!
+                        let orders = Orderlist(orderID: 0,
+                                               userName: "",
+                                               orderTime: "",
+                                               menuName: (detail["name"] as? String)!,
+                                               Totalprice: (detail["Totalprice"] as? Int)!,
+                                               price: (detail["price"] as? Int)!,
+                                               number: (detail["number"] as? Int)!,
+                                               menuID: (detail["ID"] as? Int)!,
+                                               updateValue: (detail["updateValue"] as? Int)!
+                        )
+                        self.orderArray.append(orders)
+                        self.orderlists.Totalprice += orders.Totalprice
                     }
                     self.tableView.reloadData()
                     
@@ -81,11 +89,7 @@ class orderlistDetail: UITableViewController {
     //cell數量
     //Writer : Set
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var numberOfCell: Int = 6
-        if AccountData.user_Type == "U"{
-            numberOfCell = 5
-        }
-        return numberOfCell
+        return (orderArray.count + 4)
     }
 
     //cell content
@@ -93,37 +97,47 @@ class orderlistDetail: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "orderlistDetailCell", for: indexPath) as! orderlistDetailCell
         
-        switch indexPath.row{
-        case 0:
-            var name = "訂單人"
-            if AccountData.user_Type == "U"{
-                name = "餐廳"
-            }
-            cell.fieldLabel.text = name
-            cell.valueLabel.text = orderlists.userName
+        if indexPath.item == 0 {
+            cell.menuLabel.text = "訂單人:"
+            cell.numberLabel.text = orderlists.userName
+            cell.priceLabel.text = "訂單時間:"
+            cell.totalLabel.text = orderlists.orderTime
             cell.doneButton.isHidden = true
-        case 1:
-            cell.fieldLabel.text = "訂單時間"
-            cell.valueLabel.text = orderlists.orderTime
+        }
+        else if indexPath.item == 1 {
+            cell.menuLabel.text = "菜名"
+            cell.numberLabel.text = "數量"
+            cell.priceLabel.text = "單價"
+            cell.totalLabel.text = "總價"
             cell.doneButton.isHidden = true
-        case 2:
-            cell.fieldLabel.text = "菜名"
-            cell.valueLabel.text = orderlists.menuName
+        }
+        else if indexPath.item == orderArray.count + 2 {
+            cell.menuLabel.isHidden = false
+            cell.numberLabel.isHidden = true
+            cell.priceLabel.isHidden = false
+            cell.totalLabel.isHidden = true
             cell.doneButton.isHidden = true
-        case 3:
-            cell.fieldLabel.text = "數量"
-            cell.valueLabel.text = String(orderlists.total)
+            cell.menuLabel.text = "總金額"
+            cell.priceLabel.text = String(orderlists.Totalprice)
+        }
+        else if indexPath.item == orderArray.count + 3 {
+            cell.menuLabel.isHidden = true
+            cell.numberLabel.isHidden = true
+            cell.priceLabel.isHidden = true
+            cell.totalLabel.isHidden = true
+            cell.doneButton.isHidden = false
+        }
+        else{
+            let order = orderArray[(indexPath.item - 2)]
+            cell.menuLabel.isHidden = false
+            cell.numberLabel.isHidden = false
+            cell.priceLabel.isHidden = false
+            cell.totalLabel.isHidden = false
+            cell.menuLabel.text = order.menuName
+            cell.numberLabel.text = String(order.number)
+            cell.priceLabel.text = String(order.price)
+            cell.totalLabel.text = String(order.Totalprice)
             cell.doneButton.isHidden = true
-        case 4:
-            cell.fieldLabel.text = "總金額"
-            cell.valueLabel.text = String(orderlists.price)
-            cell.doneButton.isHidden = true
-        case 5:
-            cell.fieldLabel.isHidden = true
-            cell.valueLabel.isHidden = true
-        default:
-            cell.fieldLabel.text = ""
-            cell.valueLabel.text = ""
         }
 
         return cell

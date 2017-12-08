@@ -22,13 +22,13 @@ class orderlistMain: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         orderlists.removeAll()
         var urlStr: String = ""
-        urlStr = "http://140.136.150.95:3000/orderlist/show/store?ID=\(AccountData.user_ID)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        urlStr = "http://140.136.150.95:3000/orderlist/show/store?ID=\(AccountData.res_ID)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let url = URL(string: urlStr)
         let task = URLSession.shared.dataTask(with: url!) { (data, response , error) in
             if let data = data, let dic = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [[String:Any]]{
                 DispatchQueue.main.async {
                     for orderlist in dic{
-                        let order = Orderlist(orderID: orderlist["order_ID"] as! Int, userName: orderlist["user_Name"] as! String, orderTime: orderlist["DATE"] as! String, menuName: "", total: 0, price: 0, menuID: 0, updateValue: 0)
+                        let order = Orderlist(orderID: orderlist["order_ID"] as! Int, userName: orderlist["user_Name"] as! String, orderTime: orderlist["DATE"] as! String, menuName: "", Totalprice: 0, price: 0, number: 0, menuID: 0, updateValue: 0)
                         self.orderlists.append(order)
                     }
                     self.tableView.reloadData()

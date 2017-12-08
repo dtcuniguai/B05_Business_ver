@@ -57,8 +57,6 @@ class contentDetail:UIViewController{
         storeComment.inputAccessoryView = toolBar
         
         
-        
-        print(comment)
     }
     
     @IBAction func finshAction(_ sender: Any) {

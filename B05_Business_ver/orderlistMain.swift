@@ -15,8 +15,13 @@ class orderlistMain: UITableViewController {
     override func viewDidLoad() {
         print("///////////HERE////////")
         super.viewDidLoad()
+        
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        orderlists.removeAll()
         var urlStr: String = ""
-        AccountData.user_ID = 1
         urlStr = "http://140.136.150.95:3000/orderlist/show/store?ID=\(AccountData.user_ID)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let url = URL(string: urlStr)
         let task = URLSession.shared.dataTask(with: url!) { (data, response , error) in

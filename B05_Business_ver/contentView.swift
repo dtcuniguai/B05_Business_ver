@@ -12,12 +12,12 @@ import UIKit
 class contentView:UITableViewController{
     
     var commentArray = [Comment]();
-    var commentUrl =  "http://140.136.150.95:3000/comment/show/store?storeID=368";//\(AccountData.user_ID)";
+    var commentUrl =  "http://140.136.150.95:3000/comment/show/store?storeID=368";
     var index = 0;
     
     
     override func viewDidLoad() {
-        print("Hey EveryOne")
+        
         super.viewDidLoad()
     }
     

@@ -11,6 +11,7 @@ class orderlistMainCell: UITableViewCell {
 
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var orderTime: UILabel!
+    @IBOutlet weak var orderlistStatus: UILabel!
     
     
     override func awakeFromNib() {

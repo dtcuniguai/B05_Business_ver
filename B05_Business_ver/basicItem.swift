@@ -124,6 +124,7 @@ struct Orderlist {
     var number: Int
     var menuID: Int
     var updateValue: Int
+    var payTime: String
 }
 
 

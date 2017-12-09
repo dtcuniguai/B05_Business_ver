@@ -28,7 +28,16 @@ class orderlistMain: UITableViewController {
             if let data = data, let dic = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [[String:Any]]{
                 DispatchQueue.main.async {
                     for orderlist in dic{
-                        let order = Orderlist(orderID: orderlist["order_ID"] as! Int, userName: orderlist["user_Name"] as! String, orderTime: orderlist["DATE"] as! String, menuName: "", Totalprice: 0, price: 0, number: 0, menuID: 0, updateValue: 0)
+                        let order = Orderlist(orderID: orderlist["order_ID"] as! Int,
+                                              userName: orderlist["user_Name"] as! String,
+                                              orderTime: orderlist["DATE"] as! String,
+                                              menuName: "",
+                                              Totalprice: 0,
+                                              price: 0,
+                                              number: 0,
+                                              menuID: 0,
+                                              updateValue: 0,
+                                              payTime: orderlist["pay_Time"] as! String)
                         self.orderlists.append(order)
                     }
                     self.tableView.reloadData()
@@ -56,6 +65,9 @@ class orderlistMain: UITableViewController {
         
         cell.userName.text = order.userName
         cell.orderTime.text = order.orderTime
+        if order.payTime != "NULL"{
+            cell.orderlistStatus.text = "已出貨"
+        }
         
         return cell
     }

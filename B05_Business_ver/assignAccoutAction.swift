@@ -19,12 +19,6 @@ class assignAccoutAction :UIViewController,UIPickerViewDelegate,UIPickerViewData
     //會員電話
     @IBOutlet weak var phoneField: UITextField!
     //會員性別
-    @IBOutlet weak var sexualityField: UITextField!
-    //會員性別選單
-    //生日 年
-    @IBOutlet weak var birthdayYear: UITextField!
-    //職業
-    @IBOutlet weak var career: UITextField!
     
     let refUserData = Database.database().reference().child("Accout")
     
@@ -44,7 +38,6 @@ class assignAccoutAction :UIViewController,UIPickerViewDelegate,UIPickerViewData
     //主畫面顯示
     override func viewDidLoad() {
         super.viewDidLoad();
-        creatDatePicker()
         
         pick.dataSource = self
         pick.delegate = self
@@ -64,11 +57,7 @@ class assignAccoutAction :UIViewController,UIPickerViewDelegate,UIPickerViewData
         phoneField.delegate = self
         userNameField.keyboardType = .namePhonePad
         userNameField.delegate = self
-        sexualityField.inputView = pick
-        career.inputView = pick
         phoneField.inputAccessoryView = toolBar
-        sexualityField.inputAccessoryView = toolBar
-        career.inputAccessoryView = toolBar
         
         
     }
@@ -84,7 +73,17 @@ class assignAccoutAction :UIViewController,UIPickerViewDelegate,UIPickerViewData
                     if error != nil {
                         self.Message(titleText: "錯誤", messageText: "此帳號已有人申請")
                     }else{
-                        self.creatUserData()
+                        
+                        
+                        AccountData.user_Account = self.accountField.text!
+                        AccountData.user_Password = self.passwordField.text!
+                        AccountData.user_Name = self.userNameField.text!
+                        AccountData.user_Type = "S"
+                        AccountData.user_Tel = self.phoneField.text!
+                        let main = self.storyboard?.instantiateViewController(withIdentifier: "storeID")
+                        self.present(main!, animated: false, completion: nil)
+                        
+                        
                     }
                     
                 }
@@ -104,48 +103,7 @@ class assignAccoutAction :UIViewController,UIPickerViewDelegate,UIPickerViewData
     //Focus:check textField if blank && password's textField's length must bigger than 5
     
     
-    func creatUserData(){
-        
-        /*let user = Auth.auth().currentUser?.uid
-        let userData = ["Email": accountField.text! as String,
-                        "PassWord": passwordField.text! as String
-        ]
-        refUserData.child(user!).setValue(userData)*/
-        
-        //
-        
-        
-        let birthday = fullDay.characters.split{$0 == "/"}.map(String.init)
-        
-        
-        if sexualityField.text == "男生"{
-            AccountData.user_Gender = "B"
-        }
-        else{
-            AccountData.user_Gender = "G"
-        }
-        
-        let urlStr = "http://140.136.150.95:3000/user/register?account=\(accountField.text!)&password=\(passwordField.text!)&userType=\("S")&name=\(userNameField.text!)&gender=\(AccountData.user_Gender)&career=\(career.text!)&month=\(birthday[1])&day=\(birthday[0])&year=\(birthday[2])&phone=\(phoneField.text!)&userPic=".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        let url = URL(string: urlStr!)
-        let task = URLSession.shared.dataTask(with: url!) { (data, response , error) in
-            if let data = data, let content = String(data: data, encoding: .utf8) {
-                
-                if content.count != 0 {
-                    
-                    self.signUpMesssage()
-                }
-                else{
-                    self.Message(titleText: "錯誤", messageText: "此帳號已有人申請")
-                }
-            }
-        }
-        task.resume()
-        
-        
-        
-        
-        
-    }
+    
     
     //選單地列數
     func numberOfComponents(in pickerView: UIPickerView) -> Int{
@@ -179,52 +137,6 @@ class assignAccoutAction :UIViewController,UIPickerViewDelegate,UIPickerViewData
     }
     
     
-    //點擊選單後要做的動作
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-         if countRow == sexuality.count {
-            if sexuality[row] != "-----"{
-                self.sexualityField.text = self.sexuality[row]
-            }
-            else{
-                self.sexualityField.text = ""
-            }
-        }
-         else if countRow == careerArray.count {
-            if careerArray[row] != "-----" {
-                self.career.text = self.careerArray[row]
-            }
-            else {
-                self.sexualityField.text = ""
-            }
-        }
-    }
-    
-    
-    //點選指定的textField要的事情
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        
-        ScrollView.setContentOffset((CGPoint(x: 0, y: 120)), animated: true)
-        
-        if (textField == self.sexualityField){
-            
-            countRow = sexuality.count
-   
-        }
-        
-        else if textField == self.career {
-            
-            countRow = careerArray.count
-            
-        }
-        else if textField == self.birthdayYear{
-            
-            creatDatePicker()
-        
-        }
-    
-    }
-    
-    
     func textFieldDidEndEditing(_ textField: UITextField) {
         ScrollView.setContentOffset((CGPoint(x: 0, y: -60)), animated: true)
     }
@@ -249,71 +161,6 @@ class assignAccoutAction :UIViewController,UIPickerViewDelegate,UIPickerViewData
         self.present(alert, animated: true, completion: nil)
     }
     
-    
-    ///// Ssuccess Sign UP Message
-    
-    func signUpMesssage() {
-        
-        let alert = UIAlertController(title: "登入訊息", message: "歡迎加入" + userNameField.text!, preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {  (action) in
-            
-            let urlStr = "http://140.136.150.95:3000/user/login?account=\(self.accountField.text!)&password=\(self.passwordField.text!)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-            let url = URL(string: urlStr!)
-            let task = URLSession.shared.dataTask(with: url!) { (data, response , error) in
-                if let data = data, let dic = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [[String:Any]]{
-                    DispatchQueue.main.async {
-                        for userData in dic{
-                            AccountData.user_ID = userData["user_ID"]! as! Int
-                            AccountData.user_Account = userData["user_Account"] as! String
-                            AccountData.user_Name = userData["user_Name"] as! String
-                            AccountData.user_Type = userData["user_Type"] as! String
-                            AccountData.user_Gender = userData["user_Gender"] as! String
-                            AccountData.user_Career = userData["user_Career"] as! String
-                            AccountData.user_Day = userData["user_Day"] as! String
-                            AccountData.user_Month = userData["user_Month"] as! String
-                            AccountData.user_Year = userData["user_Year"] as! String
-                            AccountData.user_Tel = userData["user_Tel"] as! String
-                            
-                        }
-                    }
-                }
-            }
-            task.resume()
-            
-            
-            let main = self.storyboard?.instantiateViewController(withIdentifier: "storeID")
-            self.present(main!, animated: false, completion: nil)
-            
-            
-        }))
-        
-        self.present(alert, animated: true, completion: nil)
-        
-        
-    }
-    
-    func creatDatePicker() {
-        datePick.datePickerMode = UIDatePickerMode.date
-        let toolBar = UIToolbar()
-        toolBar.sizeToFit()
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(assignAccoutAction.dateDonePressd))
-        toolBar.setItems([doneButton], animated: false)
-        
-        birthdayYear.inputAccessoryView = toolBar
-    
-        birthdayYear.inputView = datePick
-    }
-    
-    @objc func dateDonePressd() {
-       
-            let dateFormattet = DateFormatter()
-            dateFormattet.dateStyle = .short
-            dateFormattet.timeStyle = .none
-            birthdayYear.text = dateFormattet.string(from: datePick.date)
-            fullDay = birthdayYear.text!
-            view.endEditing(true)
-    }
     
     
     @objc func donePressd()  {

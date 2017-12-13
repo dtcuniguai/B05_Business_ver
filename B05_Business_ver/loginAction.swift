@@ -23,7 +23,7 @@ class loginAction :UIViewController, UITextFieldDelegate{
         self.accoutField.delegate = self
         self.passwordField.delegate = self
         passwordField.isSecureTextEntry = true
-        accoutField.text = "test@gmail.com"
+        accoutField.text = "sssdddd@gmail.com"
         passwordField.text = "12345678"
         
         
@@ -112,11 +112,6 @@ class loginAction :UIViewController, UITextFieldDelegate{
                         AccountData.user_Account = userData["user_Account"] as! String
                         AccountData.user_Name = userData["user_Name"] as! String
                         AccountData.user_Type = userData["user_Type"] as! String
-                        AccountData.user_Gender = userData["user_Gender"] as! String
-                        AccountData.user_Career = userData["user_Career"] as! String
-                        AccountData.user_Day = userData["user_Day"] as! String
-                        AccountData.user_Month = userData["user_Month"] as! String
-                        AccountData.user_Year = userData["user_Year"] as! String
                         AccountData.user_Tel = userData["user_Tel"] as! String
                         AccountData.res_ID = userData["shop_OwnerID"] as! Int
                     }

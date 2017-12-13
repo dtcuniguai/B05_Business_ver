@@ -12,7 +12,7 @@ import UIKit
 class contentView:UITableViewController{
     
     var commentArray = [Comment]();
-    var commentUrl =  "http://140.136.150.95:3000/comment/show/store?storeID=368";
+    var commentUrl =  " ";
     var index = 0;
     
     
@@ -29,6 +29,7 @@ class contentView:UITableViewController{
         
         commentArray.removeAll()
         self.tableView.reloadData()
+        commentUrl = "http://140.136.150.95:3000/comment/show/store?storeID=\(AccountData.res_ID)"
         let urlStr = commentUrl.addingPercentEncoding(withAllowedCharacters:.urlQueryAllowed)
         let url = URL(string:urlStr!)
         let task = URLSession.shared.dataTask(with: url!) { (data, response , error) in

@@ -107,20 +107,60 @@ class restaurantDetail: UIViewController, UITableViewDelegate, UITableViewDataSo
 
     
     @IBAction func joinToStoreID(_ sender: Any) {
-        let urlStr = "http://140.136.150.95:3000/user/storeRegister?storeID=\(restaurant.ResID)&userID=\(AccountData.user_ID)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        
+        AccountData.res_ID = restaurant.ResID
+        
+        self.creatUserData()
+        
+        
+    }
+    
+    
+    func creatUserData(){
+        
+        
+        let urlStr = "http://140.136.150.95:3000/user/store/register?account=\(AccountData.user_Account)&password=\(AccountData.user_Password)&userType=\("S")&name=\(AccountData.user_Name)&storeID=\(AccountData.res_ID)&phone=\(AccountData.user_Tel)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        
         let url = URL(string: urlStr!)
         let task = URLSession.shared.dataTask(with: url!) { (data, response , error) in
             if let data = data, let content = String(data: data, encoding: .utf8) {
-                print(content)
                 
+                if content.count != 0 {
+                    print(content)
+                    self.signUpMesssage()
+                }
+                else{
+                    self.Message(titleText: "錯誤", messageText: "此帳號已有人申請")
+                }
             }
         }
         task.resume()
         
-        AccountData.res_ID = restaurant.ResID
+    }
+    
+    
+    ///// Ssuccess Sign UP Message
+    
+    func signUpMesssage() {
         
-        let main = self.storyboard?.instantiateViewController(withIdentifier: "storeMenu")
-        self.present(main!, animated: false, completion: nil)
+        let alert = UIAlertController(title: "登入訊息", message: "歡迎加入" + AccountData.user_Name, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {  (action) in
+            let main = self.storyboard?.instantiateViewController(withIdentifier: "storeMenu")
+            self.present(main!, animated: false, completion: nil)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+        
+        
+    }
+    
+    func Message(titleText : String, messageText : String ){
+        let alert = UIAlertController(title: titleText, message: messageText, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: {  (action) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     
